@@ -4,6 +4,11 @@ import { AppLayout } from "@/components/layout/Layout";
 import { MarketingLayout } from "@/components/layout/MarketingLayout";
 
 const Home = lazy(() => import("@/pages/Home").then((m) => ({ default: m.Home })));
+const About = lazy(() => import("@/pages/About").then((m) => ({ default: m.About })));
+const Founder = lazy(() => import("@/pages/Founder").then((m) => ({ default: m.Founder })));
+const Pricing = lazy(() => import("@/pages/Pricing").then((m) => ({ default: m.Pricing })));
+const Security = lazy(() => import("@/pages/Security").then((m) => ({ default: m.Security })));
+const Contact = lazy(() => import("@/pages/Contact").then((m) => ({ default: m.Contact })));
 const Agent = lazy(() => import("@/pages/Agent").then((m) => ({ default: m.Agent })));
 const RunDetail = lazy(() =>
   import("@/pages/RunDetail").then((m) => ({ default: m.RunDetail })),
@@ -52,7 +57,14 @@ function wrap(Component: ComponentType) {
 export const router = createBrowserRouter([
   {
     element: <MarketingLayout />,
-    children: [{ path: "/", element: wrap(Home) }],
+    children: [
+      { path: "/", element: wrap(Home) },
+      { path: "/about", element: wrap(About) },
+      { path: "/founder", element: wrap(Founder) },
+      { path: "/pricing", element: wrap(Pricing) },
+      { path: "/security", element: wrap(Security) },
+      { path: "/contact", element: wrap(Contact) },
+    ],
   },
   {
     element: <AppLayout />,

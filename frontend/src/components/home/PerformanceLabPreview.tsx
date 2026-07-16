@@ -15,7 +15,7 @@ export function PerformanceLabPreview() {
           <Panel title="Strategy Backtesting" label="Demonstration Interface" items={backtesting} extra={metrics} />
           <Panel title="Trading Journal Intelligence" label="Illustrative Journal Summary" items={journal} extra={["Most Consistent Pair: EUR/USD", "Strongest Session: London", "Frequent Mistake: Early Exit", "Risk Rule Compliance: 76%", "Journal Quality: Improving"]} />
         </div>
-        <div className="mt-8 text-center"><Link to="/reports" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Explore Performance Lab <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div>
+        <div className="mt-8 text-center"><Link to="/performance-lab" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Explore Performance Lab <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div>
       </div>
     </section>
   );

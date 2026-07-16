@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState, useMemo, useCallback, type FormEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Send, Loader2, ArrowDown, Square, Download, Plus, Paperclip, X, Users, Target, ChevronDown, Pencil, Check, Play, OctagonX, Activity, Ban, CheckCircle2, Landmark } from "lucide-react";
 import { toast } from "sonner";
 import { useAgentStore } from "@/stores/agent";
@@ -209,10 +209,27 @@ function goalContinuePrompt(snapshot: GoalSnapshot): string {
   ].join("\n");
 }
 
+
+export function getPreparedAnalysisRequestFromState(state: unknown, currentDraft: string): string | null {
+  if (currentDraft.trim()) return null;
+  if (!state || typeof state !== "object") return null;
+  const maybe = state as { preparedAnalysisRequest?: unknown; template?: unknown };
+  const value = typeof maybe.preparedAnalysisRequest === "string"
+    ? maybe.preparedAnalysisRequest
+    : typeof maybe.template === "string"
+      ? maybe.template
+      : "";
+  const trimmed = value.trim();
+  return trimmed ? value : null;
+}
+
 /* ---------- Component ---------- */
 export function Agent() {
   const { t } = useTranslation();
   const [input, setInput] = useState("");
+  const [preparedLoaded, setPreparedLoaded] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -277,6 +294,14 @@ export function Agent() {
   const { connect, disconnect, onStatusChange } = useSSE();
 
   const urlSessionId = searchParams.get("session");
+
+  useEffect(() => {
+    const prepared = getPreparedAnalysisRequestFromState(location.state, input);
+    if (!prepared) return;
+    setInput(prepared);
+    setPreparedLoaded(true);
+    navigate(`${location.pathname}${location.search}`, { replace: true, state: null });
+  }, [input, location.pathname, location.search, location.state, navigate]);
 
   /* Smart scroll — only auto-scroll when near bottom */
   const isNearBottom = useCallback(() => {
@@ -1359,6 +1384,11 @@ export function Agent() {
               ))}
             </div>
           </div>
+          {preparedLoaded && (
+            <p className="rounded-xl border border-primary/20 bg-primary/5 px-3 py-2 text-sm text-muted-foreground" role="status">
+              Prepared analysis request loaded. Review it before submitting.
+            </p>
+          )}
           {/* Swarm preset badge */}
           {swarmPreset && (
             <div className="flex items-center gap-1">

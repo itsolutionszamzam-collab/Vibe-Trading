@@ -88,6 +88,10 @@ export function AppLayout() {
     return "TradeCoreFX";
   })();
 
+  useEffect(() => {
+    document.title = `${sectionTitle} | TradeCoreFX`;
+  }, [sectionTitle]);
+
   const loadSessions = () => {
     api.listSessions()
       .then((list) => setSessions(Array.isArray(list) ? list : []))

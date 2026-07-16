@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const founderImage = "/images/founder/pascal-ngandu.webp";
@@ -26,7 +27,7 @@ export function FounderSection() {
           <p className="text-sm text-muted-foreground">Founder, TradeCoreFX</p>
           <p className="mt-5 leading-7 text-muted-foreground">TradeCoreFX began with a practical question: how can traders reduce weak decisions before risking real capital? The platform was created to combine market analysis, opportunity filtering, risk calculation and performance review in one explainable system.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2"><div className="rounded-xl border bg-background/60 p-4"><h3 className="font-semibold">Vision</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">To make professional-grade forex intelligence more understandable, structured and accessible.</p></div><div className="rounded-xl border bg-background/60 p-4"><h3 className="font-semibold">Mission</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">To help traders analyse more carefully, manage risk more responsibly and continuously improve through evidence, testing and disciplined review.</p></div></div>
-          <a href="#company" className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg border px-5 py-3 text-sm font-semibold transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Read the Founder’s Story <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>
+          <Link to="/founder" className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg border px-5 py-3 text-sm font-semibold transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Read the Founder’s Story <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
         </div>
       </div>
     </section>
