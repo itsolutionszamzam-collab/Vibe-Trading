@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const TRADECOREFX_LOGO_SRC = "/images/brand/tradecorefx-logo.webp";
+const TRADECOREFX_LOGO_SRC = "/images/brand/tradecorefx-logo-mark.webp";
 
 interface LogoProps {
   className?: string;
@@ -25,8 +25,8 @@ export function Logo({ className, alt = "TradeCoreFX" }: LogoProps) {
     <img
       src={TRADECOREFX_LOGO_SRC}
       alt={alt}
-      width={160}
-      height={160}
+      width={512}
+      height={512}
       decoding="async"
       className={cn("object-contain", className)}
       onError={() => setAvailable(false)}

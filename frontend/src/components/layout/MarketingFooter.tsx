@@ -8,8 +8,27 @@ export function MarketingFooter() {
     <footer className="border-t bg-card/40 px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <p className="text-lg font-bold">TradeCoreFX</p>
-          <p className="mt-1 text-sm font-medium text-muted-foreground">Filter Better. Trade Smarter. Risk Less.</p>
+          <div className="max-w-[300px]">
+            <img
+              src="/images/brand/tradecorefx-logo-light.webp"
+              alt="TradeCoreFX — Filter Better. Trade Smarter. Risk Less."
+              width={900}
+              height={300}
+              loading="lazy"
+              decoding="async"
+              className="h-auto w-full object-contain object-left dark:hidden"
+            />
+            <img
+              src="/images/brand/tradecorefx-logo-dark.webp"
+              alt=""
+              aria-hidden="true"
+              width={900}
+              height={300}
+              loading="lazy"
+              decoding="async"
+              className="hidden h-auto w-full object-contain object-left dark:block"
+            />
+          </div>
           <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">{disclosure}</p>
           <p className="mt-4 text-xs text-muted-foreground">© {year} TradeCoreFX. All rights reserved.</p>
         </div>
