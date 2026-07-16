@@ -8,6 +8,7 @@ import { api, type SessionItem } from "@/lib/api";
 import { useAgentStore } from "@/stores/agent";
 import { ConnectionBanner } from "@/components/layout/ConnectionBanner";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
+import { Logo } from "@/components/brand/Logo";
 
 // APP_VERSION is sourced from i18n locale files (app.version key) to keep a
 // single source of truth across the footer and every localised README.
@@ -147,7 +148,7 @@ export function AppLayout() {
             <X className="h-4 w-4" />
           </button>
           <Link to="/" className={cn("flex items-center font-bold text-base tracking-tight", collapsed ? "justify-center" : "gap-2")}>
-            <BarChart3 className="h-5 w-5 text-primary shrink-0" />
+            <Logo className="h-5 w-5 shrink-0 rounded-md" />
             {!collapsed && <span><span className="block">TradeCoreFX</span><span className="block text-[10px] font-medium text-muted-foreground">Market Intelligence</span></span>}
           </Link>
         </div>

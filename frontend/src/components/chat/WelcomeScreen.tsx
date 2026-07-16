@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { BarChart3, TrendingUp, Globe, Sparkles, Users, UserCircle2, NotebookPen, Landmark, Gem } from "lucide-react";
+import { TrendingUp, Globe, Sparkles, Users, UserCircle2, NotebookPen, Landmark, Gem } from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
 
 interface Example {
   titleKey: string;
@@ -206,9 +207,7 @@ export function WelcomeScreen({ onExample }: Props) {
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-8 text-center">
       {/* Header */}
       <div className="space-y-3">
-        <div className="h-16 w-16 mx-auto rounded-2xl bg-gradient-to-br from-primary/80 to-info/80 flex items-center justify-center shadow-lg">
-          <BarChart3 className="h-8 w-8 text-white" />
-        </div>
+        <Logo className="mx-auto h-16 w-16 rounded-2xl shadow-lg" />
         <div>
           <h2 className="text-2xl font-bold tracking-tight">{t('welcome.title')}</h2>
           <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto leading-relaxed">

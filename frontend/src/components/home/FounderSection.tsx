@@ -10,12 +10,12 @@ export function FounderSection() {
   return (
     <section id="company" className="px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-8 rounded-3xl border bg-card p-6 shadow-sm md:grid-cols-[0.85fr_1.15fr] lg:p-8">
-        <div className="overflow-hidden rounded-2xl border bg-background/60">
+        <div className="aspect-[3/4] overflow-hidden rounded-2xl border bg-background/60 md:aspect-auto md:min-h-[420px]">
           {/* Development note: expected asset is frontend/public/images/founder/pascal-ngandu.webp. If absent, the browser shows the polished fallback below. */}
           {imageAvailable ? (
-            <img src={founderImage} alt="Pascal Ng’andu, Founder of TradeCoreFX" className="h-full min-h-[320px] w-full object-cover" onError={() => setImageAvailable(false)} />
+            <img src={founderImage} alt="Pascal Ng’andu, Founder of TradeCoreFX" width={960} height={1280} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" onError={() => setImageAvailable(false)} />
           ) : (
-            <div className="grid min-h-[320px] place-items-center p-8 text-center">
+            <div className="grid h-full min-h-[320px] place-items-center p-8 text-center">
             <div><p className="text-lg font-semibold">Pascal Ng’andu</p><p className="mt-2 text-sm text-muted-foreground">Founder, TradeCoreFX</p></div>
             </div>
           )}

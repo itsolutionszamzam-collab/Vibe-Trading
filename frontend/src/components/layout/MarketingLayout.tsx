@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { BarChart3, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MarketingFooter } from "./MarketingFooter";
+import { Logo } from "@/components/brand/Logo";
 
 const NAV_GROUPS = [
   { label: "Platform", links: [["Overview", "/"], ["Market Intelligence", "/agent"], ["Risk Manager", "/risk-manager"], ["Performance Lab", "/performance-lab"]] },
@@ -25,7 +26,7 @@ export function MarketingLayout() {
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"><BarChart3 className="h-5 w-5" aria-hidden="true" /></span>
+            <Logo className="h-10 w-10 shrink-0" />
             <span className="min-w-0"><span className="block text-base font-bold leading-tight tracking-tight">TradeCoreFX</span><span className="block truncate text-xs font-medium text-muted-foreground">Filter Better. Trade Smarter. Risk Less.</span></span>
           </Link>
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Marketing navigation">
