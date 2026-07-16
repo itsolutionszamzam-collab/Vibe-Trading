@@ -171,7 +171,7 @@
       "valuationCheckDesc": "Verify PE / PB / ROE / market cap with exact decimal arithmetic (no float drift)",
       "valuationCheckPrompt": "Use the financial_rigor tool to verify Kweichow Moutai's valuation: price 1500, EPS 68.6, book value per share 180 — compute PE, PB, ROE exactly, then a three-scenario valuation (growth 12%/8%/0%, PE 22/18/14, 3 years)",
       "investmentCommittee": "Investment Committee Review",
-      "investmentCommitteeDesc": "Multi-agent debate: long vs short, risk review, PM decision",
+      "investmentCommitteeDesc": "Multi-step analysis: directional views, risk review and decision context",
       "investmentCommitteePrompt": "[Swarm Team Mode] Use the investment_committee preset to evaluate whether to go long or short on 600519.SH given current market conditions",
       "quantStrategyDesk": "Quant Strategy Desk",
       "quantStrategyDeskDesc": "Screening → factor research → backtest → risk audit pipeline",
@@ -283,7 +283,7 @@
     "clearApiKey": "Clear saved API key",
     "channels": {
       "title": "IM Channels",
-      "description": "Connect chat adapters to the same Vibe-Trading session runtime used by the Web UI and CLI.",
+      "description": "Connect messaging adapters to the same local session runtime used by the Web UI and CLI.",
       "runtime": "Runtime",
       "running": "Running",
       "stopped": "Stopped",
@@ -693,7 +693,7 @@
     "expiresIn": "expires in {{time}}",
     "expired": "expired",
     "limitsUnavailable": "limits unavailable",
-    "noActiveMandate": "No active mandate. Ask the agent to propose one, then commit it before starting the connector runtime.",
+    "noActiveMandate": "No active mandate. Ask Market Intelligence to propose one, then commit it before starting the connector runtime.",
     "haltedControlsDisabled": "Halted — runner controls disabled",
     "runtimeActive": "Runtime active inside mandate",
     "idle": "Idle",
@@ -708,13 +708,13 @@
   "swarmStatus": {
     "agents": "{{done}}/{{total}} agents",
     "layer": "Layer {{current}}/{{total}}",
-    "agent": "Agent",
+    "agent": "Analysis worker",
     "status": "Status",
     "tool": "Tool",
     "time": "Time",
     "iters": "Iters",
     "output": "Output",
-    "waitingForEvents": "Waiting for agent events..."
+    "waitingForEvents": "Waiting for analysis events..."
   },
   "mandate": {
     "runtimeMandate": "Connector runtime mandate",
@@ -731,7 +731,7 @@
     "sendAdjustment": "Send adjustment",
     "mandateActive": "Mandate {{id}} active",
     "fundedBy": "funded by",
-    "noBroker": "Cannot commit mandate: connector broker is missing. Ask the agent to regenerate the proposal.",
+    "noBroker": "Cannot commit mandate: connector broker is missing. Ask Market Intelligence to regenerate the proposal.",
     "failedToCommit": "Failed to commit mandate.",
     "noLeverage": "no leverage",
     "leverageValue": "{{value}}× leverage",
@@ -740,7 +740,7 @@
     "adjustPlaceholder": "e.g. keep this but raise the daily cap to 10",
     "adjustInputLabel": "Adjustment request",
     "confirmTitle": "Confirm mandate commit",
-    "confirmDescription": "This grants the agent trading authorization under the limits shown below and takes effect immediately.",
+    "confirmDescription": "This grants Market Intelligence trading authorization under the limits shown below and takes effect immediately.",
     "confirmButton": "Confirm & commit"
   },
   "messageBubble": {
@@ -764,26 +764,26 @@
     "analysisComplete": "Analysis Complete"
   },
   "home": {
-    "title": "AI-Powered Quant Strategy Research",
-    "subtitle": "Describe a trading strategy in natural language. The agent generates code, runs backtests, and optimizes — all in real time.",
-    "startResearch": "Start Research",
-    "featureAgent": "AI Agent",
-    "featureAgentDesc": "Natural language strategy generation with ReAct reasoning",
-    "featureBacktest": "Built-in Backtest",
+    "title": "Explainable Market Intelligence",
+    "subtitle": "Describe an analysis request in natural language. TradeCoreFX structures research, historical validation and risk review using available tools and data.",
+    "startResearch": "Begin Analysis",
+    "featureAgent": "Market Intelligence",
+    "featureAgentDesc": "Explainable research workflows using available tools",
+    "featureBacktest": "Historical Validation",
     "featureBacktestDesc": "Multiple data sources covering A-shares quantitative analysis",
-    "featureStreaming": "Real-time Streaming",
-    "featureStreamingDesc": "Watch the agent think, call tools, and iterate",
+    "featureStreaming": "Analysis Progress",
+    "featureStreamingDesc": "Review available analysis steps and tool activity",
     "featureReplay": "Strategy Replay",
     "featureReplayDesc": "Trade journal analyzer + Shadow Account — extract your rules, backtest them, attribute PnL delta",
     "howItWorksTitle": "How it works",
-    "step1Title": "1. Describe your strategy",
-    "step1Desc": "Tell the agent what you want to test, in plain language — no code required.",
-    "step2Title": "2. Watch it research and backtest",
-    "step2Desc": "The agent plans, pulls market data, and runs the backtest live, so you can follow every step.",
+    "step1Title": "1. Describe your analysis request",
+    "step1Desc": "Explain the opportunity, strategy rule or market question you want to evaluate.",
+    "step2Title": "2. Review research and historical validation",
+    "step2Desc": "TradeCoreFX uses available data and tools to structure the analysis process.",
     "step3Title": "3. Review the results",
-    "step3Desc": "See performance metrics, the equity curve, and exportable Pine Script for the strategy.",
-    "step4Title": "4. Go live when you're ready",
-    "step4Desc": "Optionally approve a trading mandate with explicit limits — nothing trades without your confirmation."
+    "step3Desc": "Review verified metrics, equity curves and generated strategy materials where available.",
+    "step4Title": "4. Apply disciplined review",
+    "step4Desc": "Use the available evidence and risk tools before making an independent decision."
   },
   "errorBoundary": {
     "somethingWrong": "Something went wrong"

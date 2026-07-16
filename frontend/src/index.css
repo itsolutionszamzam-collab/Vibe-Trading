@@ -18,7 +18,9 @@
     --popover-foreground: 220 20% 10%;
 
     /* Brand accent */
-    --primary: 27 90% 52%;
+    /* TradeCoreFX blue is reserved for primary actions and navigation.
+       Amber remains available only for caution states. */
+    --primary: 211 90% 48%;
     --primary-foreground: 0 0% 100%;
 
     --muted: 220 14% 92%;
@@ -52,7 +54,7 @@
     --popover: 220 20% 9%;          /* surface-1.5 (slightly lighter than card) */
     --popover-foreground: 220 10% 92%;
 
-    --primary: 27 90% 52%;
+    --primary: 211 90% 58%;
     --primary-foreground: 0 0% 100%;
 
     --muted: 220 20% 13%;           /* surface-2 */
@@ -76,7 +78,11 @@
   }
 
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; }
+  html { scroll-padding-top: 5.5rem; }
+  body { @apply min-w-0 bg-background text-foreground; }
+  #root { min-width: 0; }
+  :focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
   /* Prose table enhancements */
   .prose table { border-collapse: collapse; width: 100%; }
@@ -123,6 +129,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
   .tradecorefx-scan,
   .tradecorefx-candle {
     animation: none !important;

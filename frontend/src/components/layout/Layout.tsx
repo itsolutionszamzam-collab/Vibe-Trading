@@ -136,14 +136,14 @@ export function AppLayout() {
         />
       )}
       {/* Sidebar */}
-      <aside id="app-sidebar" className={cn(
+      <aside id="app-sidebar" aria-label={t('layout.applicationNavigation')} className={cn(
         "fixed inset-y-0 left-0 z-50 border-e bg-card flex flex-col shrink-0 transition-all duration-200 overflow-visible md:relative md:translate-x-0 rtl:left-auto rtl:right-0",
         collapsed ? "w-12" : "w-72 md:w-64",
         mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       )}>
         {/* Brand */}
         <div className={cn("border-b", collapsed ? "p-2 flex justify-center" : "p-4")}>
-          <button type="button" onClick={() => setMobileOpen(false)} className="absolute right-2 top-2 rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden" aria-label={t('layout.closeNavigation')}>
+          <button type="button" onClick={() => setMobileOpen(false)} className="absolute right-2 top-2 inline-flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground md:hidden" aria-label={t('layout.closeNavigation')}>
             <X className="h-4 w-4" />
           </button>
           <Link to="/" className={cn("flex items-center font-bold text-base tracking-tight", collapsed ? "justify-center" : "gap-2")}>
@@ -196,7 +196,7 @@ export function AppLayout() {
               </span>
               <Link
                 to="/agent"
-                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex min-h-9 min-w-9 items-center justify-center gap-1 rounded-md text-xs text-muted-foreground transition-colors hover:text-foreground"
                 title={t('layout.newChat')}
               >
                 <Plus className="h-3.5 w-3.5" />
@@ -254,21 +254,21 @@ export function AppLayout() {
                     )}
                     {!isRenaming && isDeleting ? (
                       <div className="absolute right-0.5 flex items-center gap-0.5">
-                        <button onClick={() => deleteSession(s.session_id)} className="p-1 text-danger hover:bg-danger/10 rounded text-[10px] font-medium">{t('layout.confirm')}</button>
-                        <button onClick={() => setDeleteTarget(null)} className="p-1 text-muted-foreground hover:bg-muted rounded text-[10px]">{t('layout.cancel')}</button>
+                        <button onClick={() => deleteSession(s.session_id)} className="min-h-8 rounded px-2 text-[10px] font-medium text-danger hover:bg-danger/10">{t('layout.confirm')}</button>
+                        <button onClick={() => setDeleteTarget(null)} className="min-h-8 rounded px-2 text-[10px] text-muted-foreground hover:bg-muted">{t('layout.cancel')}</button>
                       </div>
                     ) : !isRenaming ? (
                       <div className="absolute right-1 opacity-0 group-hover:opacity-100 flex items-center gap-0.5 transition-opacity">
                         <button
                           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setRenameTarget(s.session_id); setRenameValue(s.title || ""); }}
-                          className="p-1 text-muted-foreground hover:text-foreground rounded"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded text-muted-foreground hover:text-foreground"
                           title={t('layout.rename')}
                         >
                           <Pencil className="h-3 w-3" />
                         </button>
                         <button
                           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setDeleteTarget(s.session_id); }}
-                          className="p-1 text-muted-foreground hover:text-danger rounded"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded text-muted-foreground hover:text-danger"
                           title={t('layout.delete')}
                         >
                           <Trash2 className="h-3 w-3" />
@@ -332,7 +332,7 @@ export function AppLayout() {
           <div className="flex min-w-0 items-center gap-3">
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
               aria-label={t('layout.openNavigation')}
               aria-controls="app-sidebar"
               aria-expanded={mobileOpen}
