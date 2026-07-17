@@ -444,7 +444,7 @@ class SwarmRuntime:
                 interval=interval,
                 emit=_on_grounding_heartbeat,
             ):
-                fetched = grounding.fetch_grounding_data(symbols)
+                fetched = grounding.fetch_multitimeframe_grounding_data(symbols)
         except Exception:
             logger.warning(
                 "grounding: pre-fetch failed for run %s symbols=%s",
