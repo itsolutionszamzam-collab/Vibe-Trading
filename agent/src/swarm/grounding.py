@@ -50,6 +50,7 @@ are told to cite only symbols they analyze.
 from __future__ import annotations
 
 import logging
+import math
 import re
 from datetime import date, datetime, timedelta, timezone
 from typing import Iterable, Mapping
@@ -432,13 +433,115 @@ def _has_multitimeframe_metadata(grounding: dict[str, list[dict]]) -> bool:
     )
 
 
+def _format_metric(value: object, decimals: int = 2) -> str:
+    """Format an optional finite metric without inventing a value."""
+    if value is None:
+        return "n/a"
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return "n/a"
+    if not math.isfinite(number):
+        return "n/a"
+    return f"{number:.{decimals}f}"
+
+
+def _format_feature_evidence(
+    snapshots: dict[str, dict[str, object]],
+    ordered_timeframes: list[str],
+    price_decimals: int,
+) -> list[str]:
+    """Render deterministic indicators for one symbol."""
+    lines = [
+        "",
+        "#### Deterministic indicator evidence",
+        "",
+        "Indicators below are computed from the complete bar windows, not "
+        "estimated by the model.",
+        "",
+        "| TF | History | MA trend | Momentum | RSI14 | MACD hist | ADX/+DI/-DI | ATR14 (% close) | Return 5/20 |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    volume_unavailable = False
+
+    for timeframe in ordered_timeframes:
+        snapshot = snapshots.get(timeframe, {})
+        trend = snapshot.get("trend", {})
+        momentum = snapshot.get("momentum", {})
+        directional = snapshot.get("directional", {})
+        volatility = snapshot.get("volatility", {})
+        returns = snapshot.get("returns_pct", {})
+
+        if not snapshot.get("volume_available", False):
+            volume_unavailable = True
+
+        adx_text = "/".join(
+            (
+                _format_metric(directional.get("adx14")),
+                _format_metric(directional.get("plus_di14")),
+                _format_metric(directional.get("minus_di14")),
+            )
+        )
+        atr_text = (
+            f"{_format_metric(volatility.get('atr14'), price_decimals)} "
+            f"({_format_metric(volatility.get('atr_percent'), 3)}%)"
+        )
+        return_text = (
+            f"{_format_metric(returns.get('5_bar'), 3)}% / "
+            f"{_format_metric(returns.get('20_bar'), 3)}%"
+        )
+        lines.append(
+            f"| {timeframe} | {snapshot.get('status', 'unavailable')} | "
+            f"{trend.get('alignment', 'unavailable')} | "
+            f"{momentum.get('alignment', 'unavailable')} | "
+            f"{_format_metric(momentum.get('rsi14'))} | "
+            f"{_format_metric(momentum.get('macd_histogram'), price_decimals)} | "
+            f"{adx_text} | {atr_text} | {return_text} |"
+        )
+
+    lines.extend([
+        "",
+        "| TF | SMA20 | SMA50 | SMA200 | Bollinger lower-upper | 20-bar low-high | 50-bar low-high |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ])
+    for timeframe in ordered_timeframes:
+        snapshot = snapshots.get(timeframe, {})
+        trend = snapshot.get("trend", {})
+        volatility = snapshot.get("volatility", {})
+        levels = snapshot.get("levels", {})
+        lines.append(
+            f"| {timeframe} | "
+            f"{_format_metric(trend.get('sma20'), price_decimals)} | "
+            f"{_format_metric(trend.get('sma50'), price_decimals)} | "
+            f"{_format_metric(trend.get('sma200'), price_decimals)} | "
+            f"{_format_metric(volatility.get('bb_lower'), price_decimals)} - "
+            f"{_format_metric(volatility.get('bb_upper'), price_decimals)} | "
+            f"{_format_metric(levels.get('low_20'), price_decimals)} - "
+            f"{_format_metric(levels.get('high_20'), price_decimals)} | "
+            f"{_format_metric(levels.get('low_50'), price_decimals)} - "
+            f"{_format_metric(levels.get('high_50'), price_decimals)} |"
+        )
+
+    if volume_unavailable:
+        lines.extend([
+            "",
+            "**Volume discipline:** This public spot-FX feed has no reliable "
+            "centralized volume. Do not claim OBV, volume confirmation, or "
+            "institutional order flow from zero-filled volume bars.",
+        ])
+    return lines
+
+
 def _format_multitimeframe_grounding_block(
     grounding: dict[str, list[dict]],
 ) -> str:
     """Render source-labelled multi-timeframe bars for worker prompts."""
+    from src.swarm.forex_features import build_multitimeframe_snapshots
+
     sections: list[str] = []
     captured_values: list[str] = []
     timeframe_rank = {name: index for index, name in enumerate(("1D", "4H", "1H"))}
+    feature_snapshots = build_multitimeframe_snapshots(grounding)
 
     for code, rows in grounding.items():
         enriched = [row for row in rows if row.get("timeframe")]
@@ -475,6 +578,14 @@ def _format_multitimeframe_grounding_block(
                 f"{observed_low:.{decimals}f} - {observed_high:.{decimals}f} | "
                 f"{len(timeframe_rows)} |"
             )
+
+        lines.extend(
+            _format_feature_evidence(
+                feature_snapshots.get(code, {}),
+                ordered_timeframes,
+                decimals,
+            )
+        )
 
         for timeframe in ordered_timeframes:
             timeframe_rows = sorted(grouped[timeframe], key=lambda row: row["trade_date"])
